@@ -48,6 +48,10 @@
     text-decoration: none;
   }
 
+  nav a:hover {
+    opacity: 0.6;
+  }
+
   /* 2. Headline */
   h1 {
     font-family: 'Hepta Slab', serif;
@@ -58,10 +62,34 @@
     margin-bottom: 6vh;
     text-align: center;
     line-height: 1.2;
+    min-height: 1.2em; /* Prevents layout shift while typing */
   }
 
   h1 .caps {
     letter-spacing: 0.15em;
+  }
+
+  /* Blinking Cursor Animation */
+  .cursor {
+    display: inline-block;
+    width: 3px;
+    height: 0.9em;
+    background-color: #555;
+    margin-left: 4px;
+    animation: blink 0.8s step-end infinite;
+    vertical-align: middle;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* Hide cursor when typing is finished */
+  .cursor.done {
+    animation: none;
+    opacity: 0;
+    transition: opacity 0.5s;
   }
 
   /* 3. Product Image (Fills remaining space) */
@@ -72,7 +100,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 720px; /* 10% smaller */
+    max-width: 720px; /* 10% smaller than the original 800px */
     margin-bottom: 4vh;
     background-color: #FFFFFF;
   }
@@ -82,11 +110,8 @@
     max-height: 100%;
     object-fit: contain;
     display: block;
-    
-    /* THE FIXES: */
     background-color: #FFFFFF;
     mix-blend-mode: multiply; /* Forces off-white image backgrounds to blend into pure white */
-    /* I removed the drop-shadow filter completely to eliminate the grey box effect */
   }
 
   /* 4. EXACT BRU Logo Badge */
@@ -118,9 +143,9 @@
 </head>
 <body>
 
-  <!-- Navigation Menu -->
+  <!-- Navigation Menu (Updated Support Link) -->
   <nav>
-    <a href="#">Support</a>
+    <a href="https://github.com/suyashxvz" target="_blank">Support</a>
     <a href="#">Vector Edition</a>
     <a href="#">Cart</a>
     <a href="#">Search</a>
@@ -129,8 +154,8 @@
     <a href="#">Customize</a>
   </nav>
 
-  <!-- Headline -->
-  <h1><span class="caps">SUNGLASSES</span>, Vectorized</h1>
+  <!-- Headline Container for Typewriter -->
+  <h1><span id="text-output"></span><span class="cursor"></span></h1>
 
   <!-- Product Image -->
   <div class="product-image-container">
@@ -143,5 +168,49 @@
   <!-- BRU Logo Badge -->
   <div class="logo-badge">BRU</div>
 
+  <!-- Typewriter Effect Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const text = "SUNGLASSES, Vectorized";
+      const output = document.getElementById("text-output");
+      const cursor = document.querySelector(".cursor");
+      let i = 0;
+
+      function typeWriter() {
+        if (i < text.length) {
+          let char = text.charAt(i);
+          
+          // "SUNGLASSES" is 10 characters long
+          if (i < 10) {
+            // Create or find the span with the class 'caps' for the wide spacing
+            let span = output.querySelector('.caps');
+            if (!span) {
+              span = document.createElement('span');
+              span.className = 'caps';
+              output.appendChild(span);
+            }
+            span.textContent += char;
+          } else {
+            // Append the rest of the text (", Vectorized") as a normal text node
+            let textNode = output.lastChild;
+            if (!textNode || textNode.nodeType !== 3) { // Node.TEXT_NODE is 3
+              textNode = document.createTextNode('');
+              output.appendChild(textNode);
+            }
+            textNode.textContent += char;
+          }
+          
+          i++;
+          setTimeout(typeWriter, 80); // Adjust speed here (milliseconds)
+        } else {
+          // Typing finished, hide the cursor
+          cursor.classList.add('done');
+        }
+      }
+
+      // Start the typing effect
+      typeWriter();
+    });
+  </script>
 </body>
 </html>
