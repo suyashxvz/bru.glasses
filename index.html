@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunglasses Mockup</title>
+<style>
+  /* Importing the exact fonts */
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&family=Hepta+Slab:wght@200;300&family=Danfo&display=swap');
+
+  /* Reset and base styles */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Forces the entire page to be pure white */
+  html, body {
+    height: 100%;
+    background-color: #FFFFFF !important; 
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden; /* Locks the page to the viewport, no scrolling */
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100vw;
+    color: #2b2b2b;
+  }
+
+  /* 1. Navigation Bar */
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: clamp(15px, 3vw, 40px); 
+    margin-top: 6vh; 
+    width: 100%;
+    font-size: clamp(12px, 1.5vw, 16px);
+    font-weight: 400;
+  }
+
+  nav a {
+    color: #2b2b2b;
+    text-decoration: none;
+  }
+
+  /* 2. Headline */
+  h1 {
+    font-family: 'Hepta Slab', serif;
+    font-weight: 200;
+    font-size: clamp(24px, 4vh, 48px);
+    color: #555;
+    margin-top: 12vh; 
+    margin-bottom: 6vh;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  h1 .caps {
+    letter-spacing: 0.15em;
+  }
+
+  /* 3. Product Image (Fills remaining space) */
+  .product-image-container {
+    flex-grow: 1; 
+    min-height: 0; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 720px; /* 10% smaller */
+    margin-bottom: 4vh;
+    background-color: #FFFFFF;
+  }
+
+  .product-image-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+    
+    /* THE FIXES: */
+    background-color: #FFFFFF;
+    mix-blend-mode: multiply; /* Forces off-white image backgrounds to blend into pure white */
+    /* I removed the drop-shadow filter completely to eliminate the grey box effect */
+  }
+
+  /* 4. EXACT BRU Logo Badge */
+  .logo-badge {
+    background-color: #D95F02; /* The exact orange from your image */
+    color: #FFFFFF;
+    font-family: 'Danfo', 'Rockwell Extra Bold', serif;
+    
+    /* Forces the exact chunky, comb-style weight */
+    font-weight: 900;
+    font-variation-settings: 'wght' 900, 'wdth' 100;
+    
+    /* Matches the tight spacing in the image */
+    font-size: clamp(40px, 6vh, 64px);
+    padding: 12px 36px;
+    letter-spacing: -0.05em; 
+    line-height: 1; 
+    
+    /* Sharp, straight corners exactly like the image */
+    border-radius: 0; 
+    border-left: 4px solid #FFFFFF; 
+    
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6vh; 
+  }
+</style>
+</head>
+<body>
+
+  <!-- Navigation Menu -->
+  <nav>
+    <a href="#">Support</a>
+    <a href="#">Vector Edition</a>
+    <a href="#">Cart</a>
+    <a href="#">Search</a>
+    <a href="#">Profile</a>
+    <a href="#">Sauna Edition</a>
+    <a href="#">Customize</a>
+  </nav>
+
+  <!-- Headline -->
+  <h1><span class="caps">SUNGLASSES</span>, Vectorized</h1>
+
+  <!-- Product Image -->
+  <div class="product-image-container">
+    <img 
+      src="https://i.ibb.co/mCd3Cq0y/image-1.png" 
+      alt="Sunglasses Product Image"
+    >
+  </div>
+
+  <!-- BRU Logo Badge -->
+  <div class="logo-badge">BRU</div>
+
+</body>
+</html>
