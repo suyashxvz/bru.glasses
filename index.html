@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sunglasses Mockup</title>
+<title>BRU Glasses</title>
 <style>
   /* Importing the exact fonts */
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&family=Hepta+Slab:wght@200;300&family=Danfo&display=swap');
@@ -15,12 +15,34 @@
     padding: 0;
   }
 
-  /* Forces the entire page to be pure white */
+  /* Base Theme Variables (Light Mode / Vector Edition) */
+  :root {
+    --bg-color: #FFFFFF;
+    --text-color: #2b2b2b;
+    --headline-color: #555;
+    --cursor-color: #555;
+    --image-blend: multiply;
+    --image-bg: #FFFFFF;
+    --logo-bg: #D95F02; /* Original Orange */
+  }
+
+  /* Dark Mode Overrides (Sauna Edition) */
+  body.dark-mode {
+    --bg-color: #000000;
+    --text-color: #FFFFFF;
+    --headline-color: #FFFFFF;
+    --cursor-color: #FFFFFF;
+    --image-blend: normal; 
+    --image-bg: transparent;
+    --logo-bg: #829356; /* Olive Green */
+  }
+
   html, body {
     height: 100%;
-    background-color: #FFFFFF !important; 
+    background-color: var(--bg-color) !important; 
     font-family: 'Poppins', sans-serif;
-    overflow: hidden; /* Locks the page to the viewport, no scrolling */
+    overflow: hidden; 
+    transition: background-color 0.4s ease;
   }
 
   body {
@@ -29,7 +51,8 @@
     align-items: center;
     justify-content: flex-start;
     width: 100vw;
-    color: #2b2b2b;
+    color: var(--text-color);
+    transition: color 0.4s ease;
   }
 
   /* 1. Navigation Bar */
@@ -44,8 +67,10 @@
   }
 
   nav a {
-    color: #2b2b2b;
+    color: var(--text-color);
     text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.2s, color 0.4s ease;
   }
 
   nav a:hover {
@@ -57,12 +82,13 @@
     font-family: 'Hepta Slab', serif;
     font-weight: 200;
     font-size: clamp(24px, 4vh, 48px);
-    color: #555;
+    color: var(--headline-color);
     margin-top: 12vh; 
     margin-bottom: 6vh;
     text-align: center;
     line-height: 1.2;
-    min-height: 1.2em; /* Prevents layout shift while typing */
+    min-height: 1.2em; 
+    transition: color 0.4s ease;
   }
 
   h1 .caps {
@@ -74,10 +100,11 @@
     display: inline-block;
     width: 3px;
     height: 0.9em;
-    background-color: #555;
+    background-color: var(--cursor-color);
     margin-left: 4px;
     animation: blink 0.8s step-end infinite;
     vertical-align: middle;
+    transition: background-color 0.4s ease;
   }
 
   @keyframes blink {
@@ -85,14 +112,13 @@
     50% { opacity: 0; }
   }
 
-  /* Hide cursor when typing is finished */
   .cursor.done {
     animation: none;
     opacity: 0;
     transition: opacity 0.5s;
   }
 
-  /* 3. Product Image (Fills remaining space) */
+  /* 3. Product Image */
   .product-image-container {
     flex-grow: 1; 
     min-height: 0; 
@@ -100,9 +126,10 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 720px; /* 10% smaller than the original 800px */
+    max-width: 720px; 
     margin-bottom: 4vh;
-    background-color: #FFFFFF;
+    background-color: var(--image-bg);
+    transition: background-color 0.4s ease;
   }
 
   .product-image-container img {
@@ -110,57 +137,52 @@
     max-height: 100%;
     object-fit: contain;
     display: block;
-    background-color: #FFFFFF;
-    mix-blend-mode: multiply; /* Forces off-white image backgrounds to blend into pure white */
+    background-color: var(--image-bg);
+    mix-blend-mode: var(--image-blend); 
+    transition: opacity 0.3s ease; 
   }
 
-  /* 4. EXACT BRU Logo Badge */
+  /* 4. BRU Logo Badge */
   .logo-badge {
-    background-color: #D95F02; /* The exact orange from your image */
+    background-color: var(--logo-bg); 
     color: #FFFFFF;
     font-family: 'Danfo', 'Rockwell Extra Bold', serif;
-    
-    /* Forces the exact chunky, comb-style weight */
     font-weight: 900;
     font-variation-settings: 'wght' 900, 'wdth' 100;
-    
-    /* Matches the tight spacing in the image */
     font-size: clamp(40px, 6vh, 64px);
     padding: 12px 36px;
     letter-spacing: -0.05em; 
     line-height: 1; 
-    
-    /* Sharp, straight corners exactly like the image */
     border-radius: 0; 
-    border-left: 4px solid #FFFFFF; 
-    
     display: inline-flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 6vh; 
+    transition: background-color 0.4s ease; 
   }
 </style>
 </head>
 <body>
 
-  <!-- Navigation Menu (Updated Support Link) -->
+  <!-- Navigation Menu -->
   <nav>
     <a href="https://github.com/suyashxvz" target="_blank">Support</a>
-    <a href="#">Vector Edition</a>
+    <a href="#" id="vector-toggle">Vector Edition</a>
     <a href="#">Cart</a>
     <a href="#">Search</a>
     <a href="#">Profile</a>
-    <a href="#">Sauna Edition</a>
+    <a href="#" id="sauna-toggle">Sauna Edition</a>
     <a href="#">Customize</a>
   </nav>
 
   <!-- Headline Container for Typewriter -->
   <h1><span id="text-output"></span><span class="cursor"></span></h1>
 
-  <!-- Product Image -->
+  <!-- Product Image (Updated with new light mode link) -->
   <div class="product-image-container">
     <img 
-      src="https://i.ibb.co/mCd3Cq0y/image-1.png" 
+      id="product-img"
+      src="https://i.ibb.co/rfG5T7hv/erasebg-transformed-6.png" 
       alt="Sunglasses Product Image"
     >
   </div>
@@ -168,48 +190,94 @@
   <!-- BRU Logo Badge -->
   <div class="logo-badge">BRU</div>
 
-  <!-- Typewriter Effect Script -->
+  <!-- Scripts -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const text = "SUNGLASSES, Vectorized";
-      const output = document.getElementById("text-output");
+      const textOutput = document.getElementById("text-output");
       const cursor = document.querySelector(".cursor");
-      let i = 0;
+      let typingTimeout;
 
-      function typeWriter() {
-        if (i < text.length) {
-          let char = text.charAt(i);
-          
-          // "SUNGLASSES" is 10 characters long
-          if (i < 10) {
-            // Create or find the span with the class 'caps' for the wide spacing
-            let span = output.querySelector('.caps');
-            if (!span) {
-              span = document.createElement('span');
-              span.className = 'caps';
-              output.appendChild(span);
+      // --- Dynamic Typewriter Effect ---
+      function runTypewriter(text) {
+        clearTimeout(typingTimeout);
+        textOutput.innerHTML = ''; 
+        cursor.classList.remove('done'); 
+        
+        let i = 0;
+        
+        function type() {
+          if (i < text.length) {
+            let char = text.charAt(i);
+            
+            if (i < 10) { // "SUNGLASSES" is 10 characters
+              let span = textOutput.querySelector('.caps');
+              if (!span) {
+                span = document.createElement('span');
+                span.className = 'caps';
+                textOutput.appendChild(span);
+              }
+              span.textContent += char;
+            } else {
+              let textNode = textOutput.lastChild;
+              if (!textNode || textNode.nodeType !== 3) { 
+                textNode = document.createTextNode('');
+                textOutput.appendChild(textNode);
+              }
+              textNode.textContent += char;
             }
-            span.textContent += char;
+            
+            i++;
+            typingTimeout = setTimeout(type, 80); 
           } else {
-            // Append the rest of the text (", Vectorized") as a normal text node
-            let textNode = output.lastChild;
-            if (!textNode || textNode.nodeType !== 3) { // Node.TEXT_NODE is 3
-              textNode = document.createTextNode('');
-              output.appendChild(textNode);
-            }
-            textNode.textContent += char;
+            cursor.classList.add('done');
           }
-          
-          i++;
-          setTimeout(typeWriter, 80); // Adjust speed here (milliseconds)
-        } else {
-          // Typing finished, hide the cursor
-          cursor.classList.add('done');
         }
+        type();
       }
 
-      // Start the typing effect
-      typeWriter();
+      // Start the initial typing effect
+      runTypewriter("SUNGLASSES, Vectorized");
+
+      // --- Theme Toggles ---
+      const saunaToggle = document.getElementById('sauna-toggle');
+      const vectorToggle = document.getElementById('vector-toggle');
+      const productImg = document.getElementById('product-img');
+      
+      // Updated Light Mode Image Link
+      const lightImageURL = "https://i.ibb.co/rfG5T7hv/erasebg-transformed-6.png";
+      // Dark Mode Image Link
+      const darkImageURL = "https://i.ibb.co/G6tdRxJ/erasebg-transformed-5.png"; 
+
+      // Helper function to swap image smoothly
+      function swapImage(newSrc) {
+        productImg.style.opacity = '0'; 
+        setTimeout(() => {
+          productImg.src = newSrc;
+          productImg.style.opacity = '1'; 
+        }, 300); 
+      }
+
+      // Sauna Edition (Dark Mode + A/C off text)
+      saunaToggle.addEventListener('click', (e) => {
+        e.preventDefault(); 
+        
+        if (!document.body.classList.contains('dark-mode')) {
+          document.body.classList.add('dark-mode');
+          swapImage(darkImageURL);
+          runTypewriter("SUNGLASSES, A/C off");
+        }
+      });
+
+      // Vector Edition (Light Mode Revert + Vectorized text)
+      vectorToggle.addEventListener('click', (e) => {
+        e.preventDefault(); 
+        
+        if (document.body.classList.contains('dark-mode')) {
+          document.body.classList.remove('dark-mode');
+          swapImage(lightImageURL);
+          runTypewriter("SUNGLASSES, Vectorized");
+        }
+      });
     });
   </script>
 </body>
